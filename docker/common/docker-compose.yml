@@ -1,0 +1,6 @@
+version: '2'
+services:
+  simpleservice:
+      image: skayvanfar/eagle-eye-simple-service:simple
+      ports:
+        - "8080:8080"
