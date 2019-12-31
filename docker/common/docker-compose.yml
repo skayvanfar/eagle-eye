@@ -3,4 +3,8 @@ services:
   simpleservice:
       image: skayvanfar/eagle-eye-simple-service:simple
       ports:
+        - "8081:8081"
+  licensingservice:
+      image: skayvanfar/eagle-eye-licensing-service:licensing
+      ports:
         - "8080:8080"
