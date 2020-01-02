@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * A Spring Controller class that will expose the HTTP endpoints that can be
+ * invoked on the microservice
+ */
 @RestController
 @RequestMapping(value="v1/organizations/{organizationId}/licenses")
 public class LicenseServiceController {

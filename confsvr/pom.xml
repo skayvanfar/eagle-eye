@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>ir.sk.eagle-eye</groupId>
-    <artifactId>licensing-service</artifactId>
+    <artifactId>configurationserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Eagle Eye Licensing Service</name>
-    <description>Licensing Service</description>
+    <name>Config Server</name>
+    <description>Config Server demo project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.4.RELEASE</version>
-        <relativePath/>
-        <!-- lookup parent from repository -->
     </parent>
+    <dependencyManagement>
+        <!--Spring Cloud Configuration parent
+            BOM (Bill of Materials) that you’re going to use-->
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <!--The Spring Cloud version
+                    that’s going to be used-->
+                <version>Camden.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
     </dependencies>
 
+    <!--Docker build Config-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--The bootstrap class
+            that will be used for
+            the configuration server-->
+        <start-class>ir.sk.eagleeye.confsvr.ConfigServerApplication</start-class>
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>ir.sk.eagleeye.licenses.Application</start-class>
-        <docker.image.name>skayvanfar/eagle-eye-licensing-service</docker.image.name>
-        <docker.image.tag>licensing</docker.image.tag>
+        <docker.image.name>skayvanfar/eagle-eye-confsvr</docker.image.name>
+        <docker.image.tag>confsvr</docker.image.tag>
     </properties>
 
     <build>
@@ -53,6 +71,9 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
+                            <nonFilteredFileExtensions>
+                                <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                            </nonFilteredFileExtensions>
                             <resources>
                                 <resource>
                                     <directory>src/main/docker</directory>
@@ -92,4 +113,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
