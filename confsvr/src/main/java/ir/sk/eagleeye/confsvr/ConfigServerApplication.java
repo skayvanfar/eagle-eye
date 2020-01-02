@@ -10,6 +10,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @EnableConfigServer
 public class ConfigServerApplication {
 	public static void main(String[] args) {
+		System.getenv("ENCRYPT_KEY");
 		SpringApplication.run(ConfigServerApplication.class, args);
 	}
 }
