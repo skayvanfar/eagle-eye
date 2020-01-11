@@ -1,14 +1,26 @@
 version: '2'
 services:
-  simpleservice:
-      image: skayvanfar/eagle-eye-simple-service:simple
-      ports:
-        - "8081:8081"
-  licensingservice:
-      image: skayvanfar/eagle-eye-licensing-service:licensing
-      ports:
-        - "8080:8080"
-  confsvr:
+  configserver:
       image: skayvanfar/eagle-eye-confsvr:confsvr
       ports:
         - "8888:8888"
+      environment:
+        ENCRYPT_KEY:       "IMSYMMETRIC"
+  database:
+    image: postgres:9.5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "p0stgr@s"
+      POSTGRES_DB:       "eagle_eye_local"
+  licensingservice:
+    image: skayvanfar/eagle-eye-licensing-service:licensing
+    ports:
+      - "8080:8080"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
