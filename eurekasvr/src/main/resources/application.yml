@@ -1,0 +1,17 @@
+#Default port is 8761
+# Port Eureka Server is going to listen on
+server:
+  port: 8761
+
+eureka:
+  client:
+    # Don’t register with Eureka service.
+    registerWithEureka: false
+    # Don’t cache registry information locally.
+    fetchRegistry: false
+  server:
+    # Initial time to wait before server takes requests
+    waitTimeInMsWhenSyncEmpty: 5
+  serviceUrl:
+    defaultZone: http://localhost:8761
+  

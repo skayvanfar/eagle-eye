@@ -21,6 +21,8 @@
     <module>simpleservice</module>
     <module>licensing-service</module>
     <module>confsvr</module>
+    <module>eurekasvr</module>
+    <module>organization-service</module>
   </modules>
   <build>
     <plugins>

@@ -1,0 +1,10 @@
+spring:
+  application:
+    # Logical name of the service that will be registered with Eureka
+    name: organizationservice
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true

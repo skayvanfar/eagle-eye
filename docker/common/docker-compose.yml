@@ -1,5 +1,9 @@
 version: '2'
 services:
+  eurekaserver:
+    image:   skayvanfar/eagle-eye-eurekasvr:chapter4
+    ports:
+      - "8761:8761"
   configserver:
       image: skayvanfar/eagle-eye-confsvr:confsvr
       ports:
