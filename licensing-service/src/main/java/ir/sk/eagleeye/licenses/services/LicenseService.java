@@ -104,6 +104,10 @@ public class LicenseService {
     wrapper the getLicenseByOrg() method
     with a Hystrix circuit breaker */
     @HystrixCommand(fallbackMethod = "buildFallbackLicenseList", // The fallbackMethod attribute defines a single function in your class that will be called if the call from Hystrix fails
+            threadPoolKey = "licenseByOrgThreadPool", // The threadPoolKey attribute defines the unique name of thread pool
+            threadPoolProperties = // The threadPoolProperties attribute lets you define and customize the behavior of the threadPool.
+                    {@HystrixProperty(name = "coreSize",value="30"), // The coreSize attribute lets you define the maximum number of threads in the thread pool
+                            @HystrixProperty(name="maxQueueSize", value="10")}, // The maxQueueSize lets you define a queue that sits in front of your thread pool and that can queue incoming requests
             commandProperties= // The commandProperties attribute lets you provide additional properties to customize Hystrix
                     {@HystrixProperty(
                             name="execution.isolation.thread.timeoutInMilliseconds", // The execution.isolation.thread.timeoutInMilliseconds is used to set the length of the timeout (in milliseconds) of the circuit breaker
