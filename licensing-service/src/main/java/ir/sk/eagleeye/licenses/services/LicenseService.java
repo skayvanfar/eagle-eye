@@ -1,5 +1,7 @@
 package ir.sk.eagleeye.licenses.services;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import ir.sk.eagleeye.licenses.clients.OrganizationDiscoveryClient;
 import ir.sk.eagleeye.licenses.clients.OrganizationFeignClient;
 import ir.sk.eagleeye.licenses.clients.OrganizationRestTemplateClient;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -33,6 +36,7 @@ public class LicenseService {
     OrganizationDiscoveryClient organizationDiscoveryClient;
 
 
+    @HystrixCommand
     private Organization retrieveOrgInfo(String organizationId, String clientType){
         Organization organization = null;
 
@@ -69,7 +73,39 @@ public class LicenseService {
                 .withComment(config.getExampleProperty());
     }
 
+    /**
+     * gives you a one in three chance
+     * of a database call running long
+     */
+    private void randomlyRunLong(){
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+        if (randomNum==3) sleep();
+    }
+
+    private void sleep(){
+        try {
+           /* You sleep for 11,000 milliseconds
+              (11 seconds). Default Hystrix behavior
+              is to time a call out after 1 second.*/
+            Thread.sleep(11000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* @HystrixCommand annotation is used to
+    wrapper the getLicenseByOrg() method
+    with a Hystrix circuit breaker */
+    @HystrixCommand(
+            commandProperties= // The commandProperties attribute lets you provide additional properties to customize Hystrix
+                    {@HystrixProperty(
+                            name="execution.isolation.thread.timeoutInMilliseconds", // The execution.isolation.thread.timeoutInMilliseconds is used to set the length of the timeout (in milliseconds) of the circuit breaker
+                            value="12000")})
     public List<License> getLicensesByOrg(String organizationId){
+        randomlyRunLong();
         return licenseRepository.findByOrganizationId( organizationId );
     }
 
