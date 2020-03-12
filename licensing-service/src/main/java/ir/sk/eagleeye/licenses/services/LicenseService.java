@@ -12,6 +12,7 @@ import ir.sk.eagleeye.licenses.repository.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -90,7 +91,7 @@ public class LicenseService {
            /* You sleep for 11,000 milliseconds
               (11 seconds). Default Hystrix behavior
               is to time a call out after 1 second.*/
-            Thread.sleep(11000);
+            Thread.sleep(13000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,7 +100,7 @@ public class LicenseService {
     /* @HystrixCommand annotation is used to
     wrapper the getLicenseByOrg() method
     with a Hystrix circuit breaker */
-    @HystrixCommand(
+    @HystrixCommand(fallbackMethod = "buildFallbackLicenseList", // The fallbackMethod attribute defines a single function in your class that will be called if the call from Hystrix fails
             commandProperties= // The commandProperties attribute lets you provide additional properties to customize Hystrix
                     {@HystrixProperty(
                             name="execution.isolation.thread.timeoutInMilliseconds", // The execution.isolation.thread.timeoutInMilliseconds is used to set the length of the timeout (in milliseconds) of the circuit breaker
@@ -107,6 +108,22 @@ public class LicenseService {
     public List<License> getLicensesByOrg(String organizationId){
         randomlyRunLong();
         return licenseRepository.findByOrganizationId( organizationId );
+    }
+
+    /**
+     * In the fallback method you return a hard-coded value
+     * @param organizationId
+     * @return
+     */
+    private List<License> buildFallbackLicenseList(String organizationId){
+        List<License> fallbackList = new ArrayList<>();
+        License license = new License()
+                .withId("0000000-00-00000")
+                .withOrganizationId( organizationId )
+                .withProductName("Sorry no licensing information currently available");
+
+        fallbackList.add(license);
+        return fallbackList;
     }
 
     public void saveLicense(License license){
