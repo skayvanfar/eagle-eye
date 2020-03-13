@@ -20,7 +20,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://github.com/skayvanfar/eagle-eye-config-repo/
-          searchPaths: licensingservice,organizationservice
+          searchPaths: licensingservice,organizationservice,specialroutesservice,zuulservice
           username: skayvanfar
           password: metalgearsolid5@
 
