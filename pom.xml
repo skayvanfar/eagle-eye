@@ -25,6 +25,7 @@
     <module>organization-service</module>
     <module>zuulsvr</module>
     <module>specialroutes-service</module>
+    <module>orgservice-new</module>
   </modules>
   <build>
     <plugins>
