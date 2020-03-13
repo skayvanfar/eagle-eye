@@ -1,7 +1,5 @@
-package ir.sk.eagleeye.licenses.hystrix;
+package ir.sk.eagleeye.licenses.utils;
 
-import ir.sk.eagleeye.licenses.utils.UserContext;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
