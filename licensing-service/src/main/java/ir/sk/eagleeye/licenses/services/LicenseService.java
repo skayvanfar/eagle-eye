@@ -28,7 +28,7 @@ import java.util.UUID;
         commandProperties = {
                 @HystrixProperty(
                         name = "execution.isolation.thread.timeoutInMilliseconds",
-                        value = "10000")})
+                        value = "10000")}) // values must fetch from Spring Cloud Configuration service
 public class LicenseService {
 
     private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);

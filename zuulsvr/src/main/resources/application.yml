@@ -24,3 +24,10 @@ zuul:
     # Your organizationservice and licensingservice are mapped to the organization and licensing endpoints respectively
     organizationservice: /organization/**
     licensingservice: /licensing/**
+
+#  I’ve found that with non-JVM-based languages,
+#  you’re better off setting up a Spring Cloud “Sidecar” instance. The Spring
+#  Cloud sidecar allows you to register non-JVM services with a Eureka instance and then proxy them through Zuul.
+#    licensestatic:
+#      path: /licensestatic/**
+#      url: http://licenseservice-static:8081
