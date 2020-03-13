@@ -1,4 +1,4 @@
-package ir.sk.eagleeye.licenses.hystrix;
+package ir.sk.eagleeye.specialroutes.hystrix;
 
 import ir.sk.eagleeye.licenses.utils.UserContext;
 import ir.sk.eagleeye.licenses.utils.UserContextHolder;
