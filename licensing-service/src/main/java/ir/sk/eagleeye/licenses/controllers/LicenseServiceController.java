@@ -3,6 +3,7 @@ package ir.sk.eagleeye.licenses.controllers;
 import ir.sk.eagleeye.licenses.model.License;
 import ir.sk.eagleeye.licenses.services.LicenseService;
 import ir.sk.eagleeye.licenses.config.ServiceConfig;
+import ir.sk.eagleeye.licenses.utils.UserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -21,6 +25,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value="v1/organizations/{organizationId}/licenses")
 public class LicenseServiceController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LicenseServiceController.class);
+
     @Autowired
     private LicenseService licenseService;
 
@@ -29,7 +36,7 @@ public class LicenseServiceController {
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public List<License> getLicenses( @PathVariable("organizationId") String organizationId) {
-
+        logger.debug("LicenseServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return licenseService.getLicensesByOrg(organizationId);
     }
 

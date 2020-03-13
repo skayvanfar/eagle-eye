@@ -10,8 +10,11 @@ import ir.sk.eagleeye.licenses.config.ServiceConfig;
 import ir.sk.eagleeye.licenses.model.License;
 import ir.sk.eagleeye.licenses.model.Organization;
 import ir.sk.eagleeye.licenses.repository.LicenseRepository;
+import ir.sk.eagleeye.licenses.utils.UserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ import java.util.UUID;
                         name = "execution.isolation.thread.timeoutInMilliseconds",
                         value = "10000")})
 public class LicenseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);
 
     @Autowired
     private LicenseRepository licenseRepository;
@@ -130,6 +135,8 @@ public class LicenseService {
                             // divide into the overall number of milliseconds set for rollingStatus.inMilliseconds stats
                     })
     public List<License> getLicensesByOrg(String organizationId){
+        logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+
         randomlyRunLong();
         return licenseRepository.findByOrganizationId( organizationId );
     }
