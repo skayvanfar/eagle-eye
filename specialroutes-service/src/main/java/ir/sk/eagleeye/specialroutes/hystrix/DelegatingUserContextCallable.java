@@ -1,7 +1,7 @@
 package ir.sk.eagleeye.specialroutes.hystrix;
 
-import ir.sk.eagleeye.licenses.utils.UserContext;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.eagleeye.specialroutes.utils.UserContext;
+import ir.sk.eagleeye.specialroutes.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

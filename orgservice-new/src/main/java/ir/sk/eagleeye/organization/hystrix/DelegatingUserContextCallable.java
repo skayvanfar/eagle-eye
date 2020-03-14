@@ -1,7 +1,7 @@
 package ir.sk.eagleeye.organization.hystrix;
 
-import ir.sk.eagleeye.licenses.utils.UserContext;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.eagleeye.organization.utils.UserContext;
+import ir.sk.eagleeye.organization.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

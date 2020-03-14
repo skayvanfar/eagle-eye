@@ -1,6 +1,6 @@
 spring:
   application:
-    name: organizationservice
+    name: organizationservice # todo probably must be orgservice-new
   profiles:
     active:
       default

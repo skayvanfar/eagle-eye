@@ -95,11 +95,11 @@ public class LicenseService {
      * of a database call running long
      */
     private void randomlyRunLong() {
-        Random rand = new Random();
+        /*Random rand = new Random();
 
         int randomNum = rand.nextInt((3 - 1) + 1) + 1;
 
-        if (randomNum==3) sleep();
+        if (randomNum==3) sleep();*/
     }
 
     private void sleep(){
