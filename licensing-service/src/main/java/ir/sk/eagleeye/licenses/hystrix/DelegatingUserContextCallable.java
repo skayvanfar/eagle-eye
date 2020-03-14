@@ -4,6 +4,8 @@ import ir.sk.eagleeye.licenses.utils.UserContext;
 import ir.sk.eagleeye.licenses.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
+
 
 import java.util.concurrent.Callable;
 
@@ -28,6 +30,8 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
      */
     public DelegatingUserContextCallable(Callable<V> delegate,
                                          UserContext userContext) {
+        Assert.notNull(delegate, "delegate cannot be null");
+        Assert.notNull(userContext, "userContext cannot be null");
         this.delegate = delegate;
         this.originalUserContext = userContext;
     }
@@ -51,6 +55,10 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
         finally {
             this.originalUserContext = null;
         }
+    }
+
+    public String toString() {
+        return delegate.toString();
     }
 
     public static <V> Callable<V> create(Callable<V> delegate,

@@ -76,7 +76,7 @@ public class LicenseService {
     @HystrixCommand(commandProperties= // The commandProperties attribute lets you provide additional properties to customize Hystrix
                     {@HystrixProperty(
                             name="execution.isolation.thread.timeoutInMilliseconds", // The execution.isolation.thread.timeoutInMilliseconds is used to set the length of the timeout (in milliseconds) of the circuit breaker
-                            value="3000")})
+                            value="10000")})
     public License getLicense(String organizationId, String licenseId, String clientType) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
 
