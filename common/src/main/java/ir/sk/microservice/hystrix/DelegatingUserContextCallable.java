@@ -1,7 +1,7 @@
-package ir.sk.eagleeye.licenses.hystrix;
+package ir.sk.microservice.hystrix;
 
-import ir.sk.eagleeye.licenses.utils.UserContext;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.microservice.utils.UserContext;
+import ir.sk.microservice.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;

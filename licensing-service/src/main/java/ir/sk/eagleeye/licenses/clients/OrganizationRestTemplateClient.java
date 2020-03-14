@@ -1,7 +1,7 @@
 package ir.sk.eagleeye.licenses.clients;
 
 import ir.sk.eagleeye.licenses.model.Organization;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.microservice.utils.UserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

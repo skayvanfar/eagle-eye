@@ -1,4 +1,4 @@
-package ir.sk.eagleeye.licenses.utils;
+package ir.sk.microservice.utils;
 
 import org.springframework.stereotype.Component;
 

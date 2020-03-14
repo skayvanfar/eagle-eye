@@ -1,11 +1,11 @@
-package ir.sk.eagleeye.organization.hystrix;
+package ir.sk.microservice.hystrix;
 
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariable;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariableLifecycle;
 import com.netflix.hystrix.strategy.properties.HystrixProperty;
-import ir.sk.eagleeye.organization.utils.UserContextHolder;
+import ir.sk.microservice.utils.UserContextHolder;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;

@@ -1,6 +1,6 @@
 package ir.sk.eagleeye.specialroutes;
 
-import ir.sk.eagleeye.specialroutes.utils.UserContextFilter;
+import ir.sk.microservice.utils.UserContextFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;

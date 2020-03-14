@@ -1,6 +1,6 @@
 package ir.sk.eagleeye.zuulsvr;
 
-import ir.sk.eagleeye.zuulsvr.utils.UserContextInterceptor;
+import ir.sk.microservice.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

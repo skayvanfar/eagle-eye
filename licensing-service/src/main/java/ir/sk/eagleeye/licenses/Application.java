@@ -1,7 +1,6 @@
 package ir.sk.eagleeye.licenses;
 
-import ir.sk.eagleeye.licenses.utils.UserContextInterceptor;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import ir.sk.microservice.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;

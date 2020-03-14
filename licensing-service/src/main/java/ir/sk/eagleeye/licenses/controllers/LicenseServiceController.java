@@ -3,7 +3,7 @@ package ir.sk.eagleeye.licenses.controllers;
 import ir.sk.eagleeye.licenses.model.License;
 import ir.sk.eagleeye.licenses.services.LicenseService;
 import ir.sk.eagleeye.licenses.config.ServiceConfig;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.microservice.utils.UserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

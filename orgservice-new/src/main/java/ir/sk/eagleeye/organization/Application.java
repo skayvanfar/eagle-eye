@@ -1,6 +1,6 @@
 package ir.sk.eagleeye.organization;
 
-import ir.sk.eagleeye.organization.utils.UserContextFilter;
+import ir.sk.microservice.utils.UserContextFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;

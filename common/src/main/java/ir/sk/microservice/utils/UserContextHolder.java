@@ -1,4 +1,4 @@
-package ir.sk.eagleeye.zuulsvr.utils;
+package ir.sk.microservice.utils;
 
 import org.springframework.util.Assert;
 
@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 public class UserContextHolder {
 
     // The UserContext is stored in a static ThreadLocal variable
-    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<UserContext>();
+    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<>();
 
 
     /**

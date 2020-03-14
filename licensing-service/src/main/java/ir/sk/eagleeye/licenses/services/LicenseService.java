@@ -10,7 +10,7 @@ import ir.sk.eagleeye.licenses.config.ServiceConfig;
 import ir.sk.eagleeye.licenses.model.License;
 import ir.sk.eagleeye.licenses.model.Organization;
 import ir.sk.eagleeye.licenses.repository.LicenseRepository;
-import ir.sk.eagleeye.licenses.utils.UserContextHolder;
+import ir.sk.microservice.utils.UserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
