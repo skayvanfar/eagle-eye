@@ -27,6 +27,7 @@
     <module>specialroutes-service</module>
     <module>orgservice-new</module>
     <module>common</module>
+    <module>authentication-service</module>
   </modules>
   <build>
     <plugins>
