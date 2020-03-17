@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @SpringBootApplication
 @EnableZuulProxy // Enables the service to be a Zuul server
+@ComponentScan({"ir.sk.eagleeye.zuulsvr", "ir.sk.microservice"})
 public class ZuulServerApplication {
 
     @LoadBalanced

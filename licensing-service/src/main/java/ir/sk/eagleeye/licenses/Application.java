@@ -1,5 +1,6 @@
 package ir.sk.eagleeye.licenses;
 
+import ir.sk.microservice.hystrix.ThreadLocalConfiguration;
 import ir.sk.microservice.utils.UserContextFilter;
 import ir.sk.microservice.utils.UserContextInterceptor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -36,6 +38,7 @@ import java.util.List;
 @EnableEurekaClient
 @EnableCircuitBreaker
 @EnableResourceServer
+@ComponentScan({"ir.sk.eagleeye.licenses", "ir.sk.microservice"})
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -79,12 +82,6 @@ public class Application {
 
         return template;
     }*/
-
-    @Bean
-    public Filter userContextFilter() {
-        UserContextFilter userContextFilter = new UserContextFilter();
-        return userContextFilter;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
