@@ -26,7 +26,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         passed into the method*/
         http
                 .authorizeRequests()
+                // The antMatchers() method allows you to restrict the URL and HTTP post that’s protected
                 .antMatchers(HttpMethod.DELETE, "/v1/organizations/**")
+                // The hasRole() method is a comma-separated list of roles that can be accessed
                 .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated();

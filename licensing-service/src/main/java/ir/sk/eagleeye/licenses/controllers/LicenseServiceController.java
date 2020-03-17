@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,6 +35,9 @@ public class LicenseServiceController {
     @Autowired
     private ServiceConfig serviceConfig;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping(value="/",method = RequestMethod.GET)
     public List<License> getLicenses( @PathVariable("organizationId") String organizationId) {
         logger.debug("LicenseServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
@@ -43,7 +47,8 @@ public class LicenseServiceController {
     @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
     public License getLicenses( @PathVariable("organizationId") String organizationId,
                                 @PathVariable("licenseId") String licenseId) {
-
+        logger.debug("Entering the license-service-controller");
+        logger.debug("Found tmx-correlation-id in license-service-controller: {} ", request.getHeader("tmx-correlation-id"));
         return licenseService.getLicense(organizationId, licenseId, "");
     }
 

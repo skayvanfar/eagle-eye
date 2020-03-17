@@ -24,6 +24,7 @@ zuul:
     # Your organizationservice and licensingservice are mapped to the organization and licensing endpoints respectively
     organizationservice: /organization/**
     licensingservice: /licensing/**
+  sensitiveHeaders: Cookie,Set-Cookie # todo using the @EnableOAuth2Sso annotation
 
 #  I’ve found that with non-JVM-based languages,
 #  you’re better off setting up a Spring Cloud “Sidecar” instance. The Spring

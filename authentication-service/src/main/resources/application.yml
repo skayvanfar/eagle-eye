@@ -3,7 +3,7 @@ logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
-    ir.sk..eagleeye: DEBUG
+    ir.sk.eagleeye: DEBUG
 
 eureka:
   instance:
