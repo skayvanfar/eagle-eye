@@ -31,7 +31,8 @@ public class UserContextFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        logger.debug("I am entering the licensing service id with auth token: {}" , httpServletRequest.getHeader("Authorization"));
+
+        UserContextHolder.getContext().setAuthorization(httpServletRequest.getHeader(UserContext.AUTHORIZATION) );
 
         // Retrieving values set in the HTTP header of the call into a UserContext, which is stored in UserContextHolder
         UserContextHolder.getContext().setCorrelationId(  httpServletRequest.getHeader(UserContext.CORRELATION_ID) );
@@ -40,6 +41,7 @@ public class UserContextFilter implements Filter {
         UserContextHolder.getContext().setOrgId(httpServletRequest.getHeader(UserContext.ORG_ID));
 
         logger.debug("UserContextFilter Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.debug("I am entering the licensing service id with auth token: {}" , httpServletRequest.getHeader(UserContext.AUTHORIZATION));
 
         filterChain.doFilter(httpServletRequest, servletResponse);
     }

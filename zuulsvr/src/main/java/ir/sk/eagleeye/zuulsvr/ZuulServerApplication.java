@@ -1,6 +1,5 @@
 package ir.sk.eagleeye.zuulsvr;
 
-import ir.sk.microservice.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -17,22 +16,12 @@ import java.util.List;
  */
 @SpringBootApplication
 @EnableZuulProxy // Enables the service to be a Zuul server
-@ComponentScan({"ir.sk.eagleeye.zuulsvr", "ir.sk.microservice"})
 public class ZuulServerApplication {
 
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){
-        RestTemplate template = new RestTemplate();
-        List interceptors = template.getInterceptors();
-        if (interceptors == null) {
-            template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
-        } else {
-            interceptors.add(new UserContextInterceptor());
-            template.setInterceptors(interceptors);
-        }
-
-        return template;
+        return new RestTemplate();
     }
 
     public static void main(String[] args) {

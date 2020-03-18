@@ -20,19 +20,19 @@ public class OrganizationRestTemplateClient {
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
-    @Autowired
-    OAuth2RestTemplate restTemplate;
+    /*@Autowired
+    OAuth2RestTemplate restTemplate;*/
 
-    /* @Autowired
-    RestTemplate restTemplate; */
+    @Autowired
+    RestTemplate restTemplate;
 
     public Organization getOrganization(String organizationId) {
         logger.debug(">>> In Licensing Service.getOrganization: {}. Thread Id: {}", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
-   //     logger.debug("In Licensing Service.getOrganization: {}", UserContext.getCorrelationId());
+        logger.debug("In Licensing Service.getOrganization: Authorization {}", UserContextHolder.getContext().getAuthorization());
 
         ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
-                        "http://zuulservice:5555/api/organization/v1/organizations/{organizationId}", // When using a Ribbon-back RestTemplate, you build the target URL with the Eureka service ID.
+                        "http://zuulservice/api/organization/v1/organizations/{organizationId}", // When using a Ribbon-back RestTemplate, you build the target URL with the Eureka service ID.
                         HttpMethod.GET,
                         null, Organization.class, organizationId);
 

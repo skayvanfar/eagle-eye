@@ -45,7 +45,7 @@ public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    @Primary
+/*    @Primary
     @Bean
     @LoadBalanced
     public OAuth2RestTemplate oauth2RestTemplate(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext,
@@ -64,10 +64,10 @@ public class Application {
         }
 
         return template;
-    }
+    }*/
 
     // The @LoadBalanced annotation tells Spring Cloud to create a Ribbon backed RestTemplate class.
-/*    @LoadBalanced
+    @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){
         RestTemplate template = new RestTemplate();
@@ -83,7 +83,7 @@ public class Application {
         }
 
         return template;
-    }*/
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
