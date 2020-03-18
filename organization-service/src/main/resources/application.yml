@@ -8,6 +8,7 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     ir.sk.eagleeye: DEBUG
+    ir.sk.microservice: DEBUG
 eureka:
   instance:
     # Register the IP of the service rather than the server name.

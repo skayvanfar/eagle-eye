@@ -19,3 +19,4 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     ir.sk.eagleeye: DEBUG
+    ir.sk.microservice: DEBUG
