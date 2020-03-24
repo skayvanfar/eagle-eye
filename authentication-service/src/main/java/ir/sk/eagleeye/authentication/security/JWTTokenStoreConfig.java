@@ -53,5 +53,9 @@ public class JWTTokenStoreConfig {
         return converter;
     }
 
+    @Bean
+    public TokenEnhancer jwtTokenEnhancer() {
+        return new JWTTokenEnhancer();
+    }
 
 }
