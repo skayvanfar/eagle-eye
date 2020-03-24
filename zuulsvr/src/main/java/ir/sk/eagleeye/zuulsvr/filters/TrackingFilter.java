@@ -2,6 +2,9 @@ package ir.sk.eagleeye.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import ir.sk.eagleeye.zuulsvr.config.ServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +17,26 @@ import org.springframework.stereotype.Component;
  * are executed when carrying out a customer request. A correlation ID allows you
  * to trace the chain of events that occur as a call goes through a series of
  * microservice calls
+ *
  * @author <a href="kayvanfar.sj@gmail.com">Saeed Kayvanfar</a> on 3/13/2020.
  */
 @Component
 public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend the ZuulFilter class and override four methods: filterType(), filterOrder(), shouldFilter(), and run().*/
 
-    private static final int      FILTER_ORDER =  1;
-    private static final boolean  SHOULD_FILTER=true;
+    private static final int FILTER_ORDER = 1;
+    private static final boolean SHOULD_FILTER = true;
     private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
 
     @Autowired
     FilterUtils filterUtils;
 
+    @Autowired
+    private ServiceConfig serviceConfig;
+
     /**
      * used to tell Zuul whether the filter
      * is a pre-, route, or post filter
+     *
      * @return
      */
     @Override
@@ -40,6 +48,7 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
      * The filterOrder() method returns an integer
      * value indicating what order Zuul should send
      * requests through the different filter types
+     *
      * @return
      */
     @Override
@@ -51,14 +60,15 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
      * The shouldFilter() method returns
      * a Boolean indicating whether or
      * not the filter should be active
+     *
      * @return
      */
     public boolean shouldFilter() {
         return SHOULD_FILTER;
     }
 
-    private boolean isCorrelationIdPresent(){
-        if (filterUtils.getCorrelationId() !=null){
+    private boolean isCorrelationIdPresent() {
+        if (filterUtils.getCorrelationId() != null) {
             return true;
         }
 
@@ -70,9 +80,10 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
      * check if the tmx-correlation-id is
      * present and can also generate a
      * correlation ID GUIID value
+     *
      * @return
      */
-    private String generateCorrelationId(){
+    private String generateCorrelationId() {
         return java.util.UUID.randomUUID().toString();
     }
 
@@ -86,20 +97,49 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
      * if it isn’t, you generate a
      * correlation value and set the
      * tmx-correlation-id HTTP
+     *
      * @return
      */
     public Object run() {
 
+        RequestContext ctx = RequestContext.getCurrentContext();
+
         if (isCorrelationIdPresent()) {
             logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
-        }
-        else{
+        } else {
             filterUtils.setCorrelationId(generateCorrelationId());
             logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
         }
 
-        RequestContext ctx = RequestContext.getCurrentContext();
-        logger.debug("Processing incoming request for {}.",  ctx.getRequest().getRequestURI());
+        System.out.println("The organization id from the token is : " + getOrganizationId());
+        filterUtils.setOrgId(getOrganizationId());
+        logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
         return null;
+    }
+
+    /**
+     * parse out a custom field in the JWT token
+     *
+     * @return
+     */
+    private String getOrganizationId() {
+
+        String result = "";
+        if (filterUtils.getAuthToken() != null) {
+
+            // Parse out the token out of the Authorization HTTP header
+            String authToken = filterUtils.getAuthToken().replace("Bearer ", "");
+            try {
+                // Use JWTS class to parse out the token, passing in the signing key used to sign the token
+                Claims claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+                        .parseClaimsJws(authToken).getBody();
+                // Pull the organizationId out of the JavaScript token
+                result = (String) claims.get("organizationId");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }
