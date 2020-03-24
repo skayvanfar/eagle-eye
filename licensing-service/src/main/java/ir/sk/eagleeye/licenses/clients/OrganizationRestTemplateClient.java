@@ -1,16 +1,14 @@
 package ir.sk.eagleeye.licenses.clients;
 
 import ir.sk.eagleeye.licenses.model.Organization;
-import ir.sk.microservice.utils.UserContext;
 import ir.sk.microservice.utils.UserContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Rest—Uses an enhanced Spring RestTemplate to invoke the Ribbon-based service

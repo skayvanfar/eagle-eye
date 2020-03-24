@@ -23,6 +23,7 @@ public class ThreadLocalAwareStrategy extends HystrixConcurrencyStrategy {
      * Spring Cloud already has a concurrency class defined.
      * Pass the existing concurrency strategy into the class
      * constructor of your HystrixConcurrencyStrategy
+     *
      * @param existingConcurrencyStrategy
      */
     public ThreadLocalAwareStrategy(
@@ -33,6 +34,7 @@ public class ThreadLocalAwareStrategy extends HystrixConcurrencyStrategy {
     /**
      * Several methods need to beoverridden. Either call the existingConcurrencyStrategy method implementation or call the base
      * HystrixConcurrencyStrategy
+     *
      * @param maxQueueSize
      * @return
      */
@@ -66,6 +68,7 @@ public class ThreadLocalAwareStrategy extends HystrixConcurrencyStrategy {
 
     /**
      * Inject your Callable implementation that will set the UserContext
+     *
      * @param callable
      * @param <T>
      * @return

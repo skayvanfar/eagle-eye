@@ -29,12 +29,12 @@ public class OrganizationDiscoveryClient {
         // Gets a list of all the instances of organization services
         List<ServiceInstance> instances = discoveryClient.getInstances("organizationservice");
 
-        if (instances.size()==0) return null;
+        if (instances.size() == 0) return null;
         // Retrieves the service endpoint we are going to call
-        String serviceUri = String.format("%s/v1/organizations/%s",instances.get(0).getUri().toString(), organizationId);
+        String serviceUri = String.format("%s/v1/organizations/%s", instances.get(0).getUri().toString(), organizationId);
 
         // Uses a standard Spring REST Template class to call the service
-        ResponseEntity< Organization > restExchange =
+        ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
                         serviceUri,
                         HttpMethod.GET,

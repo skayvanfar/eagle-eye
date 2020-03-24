@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import javax.servlet.Filter;
+
 @SpringBootApplication
 @EnableEurekaClient
 //@EnableFeignClients

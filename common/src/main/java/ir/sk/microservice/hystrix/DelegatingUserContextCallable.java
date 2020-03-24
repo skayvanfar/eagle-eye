@@ -6,12 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-
 import java.util.concurrent.Callable;
 
 /**
  * used to set the UserContext from the parent thread executing
  * the user’s REST service call to the Hystrix command thread
+ *
  * @author <a href="kayvanfar.sj@gmail.com">Saeed Kayvanfar</a> on 3/13/2020.
  */
 public class DelegatingUserContextCallable<V> implements Callable<V> {
@@ -25,6 +25,7 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
      * Custom Callable class will be passed the original Callable
      * class that will invoke your Hystrix protected code and
      * UserContext coming in from the parent thread
+     *
      * @param delegate
      * @param userContext
      */
@@ -39,11 +40,12 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
     /**
      * The UserContext is set. The ThreadLocal variable that stores
      * the UserContext is associated with the thread running the Hystrix protected method
+     *
      * @return
      * @throws Exception
      */
     public V call() throws Exception {
-        UserContextHolder.setContext( originalUserContext );
+        UserContextHolder.setContext(originalUserContext);
 
         try {
             // Once the UserContext is set invoke the
@@ -51,8 +53,7 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
             // method; for instance, your
             // LicenseServer.getLicenseByOrg() method.
             return delegate.call();
-        }
-        finally {
+        } finally {
             this.originalUserContext = null;
         }
     }

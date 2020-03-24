@@ -28,9 +28,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -43,12 +41,13 @@ import java.util.Random;
  * allow you to do A/B testing of a new version of a service. A/B testing is where you roll
  * out a new feature and then have a percentage of the total user population use that feature.
  * The rest of the user population still uses the old service
+ *
  * @author <a href="kayvanfar.sj@gmail.com">Saeed Kayvanfar</a> on 3/13/2020.
  */
 @Component
 public class SpecialRoutesFilter extends ZuulFilter {
 
-    private static final int FILTER_ORDER =  1;
+    private static final int FILTER_ORDER = 1;
     private static final boolean SHOULD_FILTER = false;
 
     @Autowired
@@ -79,10 +78,11 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
     /**
      * The call out to SpecialRoutes service
+     *
      * @param serviceName
      * @return
      */
-    private AbTestingRoute getAbRoutingInfo(String serviceName){
+    private AbTestingRoute getAbRoutingInfo(String serviceName) {
         ResponseEntity<AbTestingRoute> restExchange = null;
         try {
             // Calls the SpecialRoutesService endpoint
@@ -90,15 +90,14 @@ public class SpecialRoutesFilter extends ZuulFilter {
                     "http://specialroutesservice/v1/route/abtesting/{serviceName}",
                     HttpMethod.GET,
                     null, AbTestingRoute.class, serviceName);
-        }
-        catch(HttpClientErrorException ex) { // If the routes services doesn't find a record (it will return a 404 HTTP Status Code), the method will return null
-            if (ex.getStatusCode()== HttpStatus.NOT_FOUND) return null;
+        } catch (HttpClientErrorException ex) { // If the routes services doesn't find a record (it will return a 404 HTTP Status Code), the method will return null
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) return null;
             throw ex;
         }
         return restExchange.getBody();
     }
 
-    private String buildRouteString(String oldEndpoint, String newEndpoint, String serviceName){
+    private String buildRouteString(String oldEndpoint, String newEndpoint, String serviceName) {
         int index = oldEndpoint.indexOf(serviceName);
 
         String strippedRoute = oldEndpoint.substring(index + serviceName.length());
@@ -148,8 +147,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
         InputStream requestEntity = null;
         try {
             requestEntity = request.getInputStream();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             // no requestBody is ok.
         }
         return requestEntity;
@@ -158,6 +156,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
     /**
      * The result of service call is saved back to the Zuul server
      * through the setResponse() helper method.
+     *
      * @param response
      * @throws IOException
      */
@@ -168,7 +167,8 @@ public class SpecialRoutesFilter extends ZuulFilter {
     }
 
     /**
-     *  Invokes the service
+     * Invokes the service
+     *
      * @param httpclient
      * @param verb
      * @param uri
@@ -184,7 +184,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
                                  MultiValueMap<String, String> params, InputStream requestEntity)
             throws Exception {
         Map<String, Object> info = this.helper.debug(verb, uri, headers, params, requestEntity);
-        URL host = new URL( uri );
+        URL host = new URL(uri);
         HttpHost httpHost = getHttpHost(host);
 
         HttpRequest httpRequest;
@@ -204,7 +204,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
                 httpPut.setEntity(entity);
                 break;
             case "PATCH":
-                HttpPatch httpPatch = new HttpPatch(uri );
+                HttpPatch httpPatch = new HttpPatch(uri);
                 httpRequest = httpPatch;
                 httpPatch.setEntity(entity);
                 break;
@@ -217,8 +217,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
             HttpResponse zuulResponse = forwardRequest(httpclient, httpHost, httpRequest);
 
             return zuulResponse;
-        }
-        finally {
+        } finally {
         }
     }
 
@@ -226,10 +225,11 @@ public class SpecialRoutesFilter extends ZuulFilter {
     /**
      * determine whether you should route the target service request to the
      * alternative service location or to the default service location statically managed by the Zuul route maps
+     *
      * @param testRoute
      * @return
      */
-    public boolean useSpecialRoute(AbTestingRoute testRoute){
+    public boolean useSpecialRoute(AbTestingRoute testRoute) {
         Random random = new Random();
 
         // Checks to see if the route is even active
@@ -238,7 +238,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
         // Determines whether you should use the alternative service route
         int value = random.nextInt((10 - 1) + 1) + 1;
 
-        if (testRoute.getWeight()<value) return true;
+        if (testRoute.getWeight() < value) return true;
 
         return false;
     }
@@ -248,12 +248,12 @@ public class SpecialRoutesFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         // Executes call to SpecialRoutes service to determine if there is a routing record for this org
-        AbTestingRoute abTestRoute = getAbRoutingInfo( filterUtils.getServiceId() );
+        AbTestingRoute abTestRoute = getAbRoutingInfo(filterUtils.getServiceId());
 
         /*The useSpecialRoute() method
         will take the weight of the route, generate a random number, and determine if you’re going
         to forward the request onto the alternative service*/
-        if (abTestRoute!=null && useSpecialRoute(abTestRoute)) {
+        if (abTestRoute != null && useSpecialRoute(abTestRoute)) {
             // If there’s a routing record, build the full URL (with path) to the service location specified by the specialroutes service
             String route = buildRouteString(ctx.getRequest().getRequestURI(),
                     abTestRoute.getEndpoint(),
@@ -266,6 +266,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
     /**
      * does the work of forwarding onto the alternative service
+     *
      * @param route
      */
     private void forwardToSpecialRoute(String route) {
@@ -290,21 +291,19 @@ public class SpecialRoutesFilter extends ZuulFilter {
         HttpResponse response = null;
 
         try {
-            httpClient  = HttpClients.createDefault();
+            httpClient = HttpClients.createDefault();
             // Invokes the alternative service using the forward helper method
             response = forward(httpClient, verb, route, request, headers,
                     params, requestEntity);
             setResponse(response);
-        }
-        catch (Exception ex ) {
+        } catch (Exception ex) {
             ex.printStackTrace();
 
-        }
-        finally{
+        } finally {
             try {
                 httpClient.close();
+            } catch (IOException ex) {
             }
-            catch(IOException ex){}
         }
     }
 }

@@ -1,9 +1,8 @@
 package ir.sk.eagleeye.licenses;
 
-import ir.sk.microservice.hystrix.ThreadLocalConfiguration;
-import ir.sk.microservice.utils.UserContextFilter;
 import ir.sk.microservice.utils.UserContextInterceptor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -14,18 +13,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Primary;
-
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.RequestContextListener;
 
-import javax.servlet.Filter;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,15 +59,14 @@ public class Application {
     // The @LoadBalanced annotation tells Spring Cloud to create a Ribbon backed RestTemplate class.
     @LoadBalanced
     @Bean
-    public RestTemplate getRestTemplate(){
+    public RestTemplate getRestTemplate() {
         RestTemplate template = new RestTemplate();
         List interceptors = template.getInterceptors();
 
         // Adding the UserContextInterceptor to the RestTemplate instance that has been created
-        if (interceptors==null){
+        if (interceptors == null) {
             template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
-        }
-        else{
+        } else {
             interceptors.add(new UserContextInterceptor());
             template.setInterceptors(interceptors);
         }

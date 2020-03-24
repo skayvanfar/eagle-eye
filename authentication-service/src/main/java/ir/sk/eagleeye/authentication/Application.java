@@ -23,7 +23,7 @@ import java.util.Map;
 public class Application {
 
     // Used later in the chapter to retrieve information about the user
-    @RequestMapping(value = { "/user" }, produces = "application/json")
+    @RequestMapping(value = {"/user"}, produces = "application/json")
     public Map<String, Object> user(OAuth2Authentication user) {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("user", user.getUserAuthentication().getPrincipal());

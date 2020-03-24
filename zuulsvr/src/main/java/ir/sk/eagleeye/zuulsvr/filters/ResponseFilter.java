@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 /**
  * a Zuul post filter to inject the correlation ID back
  * into the HTTP response headers being passed back to the caller of the service
+ *
  * @author <a href="kayvanfar.sj@gmail.com">Saeed Kayvanfar</a> on 3/13/2020.
  */
 @Component
 public class ResponseFilter extends ZuulFilter {
 
-    private static final int  FILTER_ORDER=1;
-    private static final boolean  SHOULD_FILTER=true;
+    private static final int FILTER_ORDER = 1;
+    private static final boolean SHOULD_FILTER = true;
     private static final Logger logger = LoggerFactory.getLogger(ResponseFilter.class);
 
     @Autowired
