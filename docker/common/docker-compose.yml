@@ -56,6 +56,9 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ZUULSERVER_PORT:     "5555"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      AUTHSERVER_PORT:   8091
+      ES_PORT:           9200
       ENCRYPT_KEY:       "IMSYMMETRIC"
   organizationservice:
     image: skayvanfar/eagle-eye-organization-service:organization
@@ -69,6 +72,9 @@ services:
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      AUTHSERVER_PORT:   8091
+      ES_PORT:           9200
       ENCRYPT_KEY:       "IMSYMMETRIC"
   organizationservice2:
     image: skayvanfar/eagle-eye-organization-service:organization
