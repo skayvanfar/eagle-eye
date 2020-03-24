@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
  *
  * @author <a href="kayvanfar.sj@gmail.com">Saeed Kayvanfar</a> on 3/15/2020.
  */
-@Configuration
+//@Configuration
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

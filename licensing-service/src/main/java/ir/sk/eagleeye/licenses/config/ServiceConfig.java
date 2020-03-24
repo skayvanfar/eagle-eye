@@ -4,12 +4,34 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ServiceConfig {
+public class ServiceConfig{
 
-    @Value("${example.property}")
-    private String exampleProperty;
+  @Value("${example.property}")
+  private String exampleProperty;
 
-    public String getExampleProperty() {
-        return exampleProperty;
-    }
+  @Value("${redis.server}")
+  private String redisServer="";
+
+  @Value("${redis.port}")
+  private String redisPort="";
+
+  @Value("${signing.key}")
+  private String jwtSigningKey="";
+
+  public String getExampleProperty(){
+    return exampleProperty;
+  }
+
+  public String getJwtSigningKey() {
+    return jwtSigningKey;
+  }
+
+  public String getRedisServer(){
+    return redisServer;
+  }
+
+  public Integer getRedisPort(){
+    return new Integer( redisPort ).intValue();
+  }
+
 }

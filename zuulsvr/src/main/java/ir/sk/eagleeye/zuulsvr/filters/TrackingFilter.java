@@ -2,6 +2,9 @@ package ir.sk.eagleeye.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import ir.sk.eagleeye.zuulsvr.config.ServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
 
     @Autowired
     FilterUtils filterUtils;
+
+    @Autowired
+    private ServiceConfig serviceConfig;
 
     /**
      * used to tell Zuul whether the filter
@@ -96,6 +102,8 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
      */
     public Object run() {
 
+        RequestContext ctx = RequestContext.getCurrentContext();
+
         if (isCorrelationIdPresent()) {
             logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
         } else {
@@ -103,8 +111,35 @@ public class TrackingFilter extends ZuulFilter { /*All Zuul filters must extend 
             logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
         }
 
-        RequestContext ctx = RequestContext.getCurrentContext();
+        System.out.println("The organization id from the token is : " + getOrganizationId());
+        filterUtils.setOrgId(getOrganizationId());
         logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
         return null;
+    }
+
+    /**
+     * parse out a custom field in the JWT token
+     *
+     * @return
+     */
+    private String getOrganizationId() {
+
+        String result = "";
+        if (filterUtils.getAuthToken() != null) {
+
+            // Parse out the token out of the Authorization HTTP header
+            String authToken = filterUtils.getAuthToken().replace("Bearer ", "");
+            try {
+                // Use JWTS class to parse out the token, passing in the signing key used to sign the token
+                Claims claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+                        .parseClaimsJws(authToken).getBody();
+                // Pull the organizationId out of the JavaScript token
+                result = (String) claims.get("organizationId");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }
