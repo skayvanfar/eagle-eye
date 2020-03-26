@@ -1,7 +1,26 @@
+spring:
+  cloud:
+    # stream.bindings is the start of the configuration needed for your service to publish to a Spring Cloud Stream message broke
+    stream:
+      bindings:
+        # output is the name of your channel and maps to the Source.output() channel
+        output:
+          # orgChangeTopic is the name of the message queue (or topic) you’re going to write messages to
+          destination:  orgChangeTopic
+          # The content-type gives a hint to Spring Cloud Stream of what type of message is going to be sent and received (in this case JSON, you could have used XML, and the Apache Foundation’s Avro format).
+          content-type: application/json
+      # The stream.bindings.kafka property tells Spring you’re going to use Kafka as the message bus in the service (you could have used RabbitMQ as an alternative).
+      kafka:
+        binder:
+          # The zknodes and brokers property tells Spring Cloud Stream the network location of your Kafka and ZooKeeper
+          zkNodes: localhost
+          brokers: localhost
 security:
   oauth2:
     resource:
       userInfoUri: http://localhost:8901/auth/user
+server:
+  port: 8082
 #Setting the logging levels for the service
 logging:
   level:

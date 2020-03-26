@@ -46,10 +46,10 @@ services:
   licensingservice:
     image: skayvanfar/eagle-eye-licensing-service:licensing
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8080"
+      SERVER_PORT: "8081"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"
@@ -63,10 +63,10 @@ services:
   organizationservice:
     image: skayvanfar/eagle-eye-organization-service:organization
     ports:
-      - "8085:8085"
+      - "8082:8082"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8085"
+      SERVER_PORT: "8082"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"
@@ -82,7 +82,7 @@ services:
       - "8086:8086"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8085"
+      SERVER_PORT: "8082"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"

@@ -15,7 +15,7 @@ services:
   licensingservice:
       image: skayvanfar/licensing-service
       ports:
-        - "8080:8080"
+        - "8081:8081"
       environment:
         PROFILE: "prod"
         CONFIGSERVER_URI: "http://configserver:8888"
