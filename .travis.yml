@@ -1,34 +1,53 @@
+# Sets up the core run-time configuration for the build
+# Tells Travis to use Java and JDK 8 for your primary runtime environment
 language: java
+# Tells Travis to cache and re-use your Maven directory between builds
 cache:
   directories:
   - $HOME/.m2
 jdk:
 - oraclejdk8
+# Allows the build to use Sudo access on the virtual machine it’s running on
 sudo: required
 services:
 - docker
+# Configures the email address used to notify the success or failure of the build
 notifications:
-  slack: teamcarnell:zhTADgjsb7yJ5RPEd7LPNFwI
   email:
-  - skayvanfar.sj@gmail.com
+  - kayvanfar.sj@gmail.com
   on_success: always
   on_failure: always
-before_install:
-  - sudo curl -k -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
-  - sudo chmod +x /usr/local/bin/ecs-cli
+# Indicates to Travis that it should only build on a commit to the master branch
+branches:
+  only:
+    - master
+# Sets up secure environment variables to use in your scripts
 env:
   global:
-  - secure: da8h8K0dKEeVrk+3zO8r9GEv6LqK+23QKZBshsQjyhsu2AT9O6/6EWGbS5mGqTnPPJLqCsEkSEOEUG7BlgCV0gQM7TkvMKGK0DgIJ4usydj2LHNuVMi95BebDUIjUZu0JZmTtjqD92PCUUJ8eRO6765l1gmaU8x9MEdaWWkBHlA96cuJuJLNY8/7el56nj+gofGXsfQUcPMc70It7nArerBCSeQLlT5c69HrMx8znT9cqa0gbjzsoCBs/0VpDE7HqnuQDafoDhQZGoOYf3W2Ubk75mt7F+V0w40HPeJXZFVUZvoihr6yfArypk6S4wZYm19IEi8coZfHosjX1k6IOiQYvXEImyxjyn5VzxEcf5JxRQA1QWjCeNUk1alGKVJYl5cKxeIir2HzHwSQc+4NJIcnL62BiwKJjHUHGBfrujMhl1euhDDv8QWZIFmLm3nIjNeuJJPUh9UL8+xH1wdMe75+ObHtQLfwsDJuzs5/zmErZ3RIl7JJAYTy9QXE8S3sbPs+Bgf7NpUu9FWenNXddz176raVIDXsPaayQ+Y5GX+X/zQz+5Xl0rbTdL7pUst2xSkKEogawLq9zHab021PmwR5IJ+GJG5TTH5zvpHQDbzT//PfCC2HWnzqbcNVdYuH2L9AH6JVMitywdZbFKhyWj+w+IQpS4ddefHX7UoYyoY=
-  - secure: QB0IkG1MLj0EyInuU1LJCbIzsB6vrcOmNHF0JZbt4BGi+zN3RLvx/Oxgr1TdkMvsXJAYfhRI4spULsoNjwK9mfgbOPknL281h7MwF1WsjQmIZEgNtSG3GFsPPbTIATfTcd7af+pqM8dDNVD+e5xup1lVoEqt9N/3/LBwQn5W96WzydzLdp6FWGH69/72ZbJUx2L9YigvDoSCc0SOsdOIwtit58vLJ4KLsS3rE2U6TXxs5yuTllgbV4LObSbhZDFrrrZLEVHQWubLK2R1NJjbz5uJA3cjQHx9J5qWbu2l9VgLe2Kv5r+WvJ5TzWQEdCxK9irYPaaXJMqivBoyjAVpxwj1SYn2Zslutq7xhEhx8y0Ai0XQ1/fUPMXOCXrTV0v9tov782uAeCkt4ADPcpcJBOekaafNB85jBVWSfHtXb5mg3QO4bj6dqf8r+3q0IorjxXdYtg0w6bF6N7XmWRPRgy8dDwI4w0eOmLVoGRTAQ5xeUJn9eMsItfEkTUzTY5jJF2fW0T9ymyJDKvPzNuWT79fBQWbf0EtwCjx7mHMX/WtaXjPhmvn9SzOo6B9sL5O3onlaGNhZ3u51E7QW5yLOIr1SaVaDrQ1dBODUBL17TeQzwnWFdcIshRVMwb5aQs0AJxrcrs6ptQts6MIZcwJWAyjEj5r9GRfhThoHHKNy3QQ=
+    - secure: E6WqUsvNBaznI6xiaDLzBVLr7pKGqR3uGOjBXqT5m6snZnQmH7awu364aHXgE5wte7kODIbtIhWOBFUxZqdFT6UUF/sTGrBEfVbK7H4cFNconiSoY9TJU6lll4MK/KMNHKCew4WfCDCTDefCuN4fVbMmb+hKHTGYNMo5IyzYFrpqitdt1Q3uNbu0A25tyAKluZ5eTMbO5ZG76B2eX5Pvge6h3Y0qEsCY+1vP7xcSBIEJYVw+PMfvp7DDgwkj4oAPu0wEelaxLfeCUDfkPRBAnCauyKfg1Ida1/aIieBd2xVkv+Ypm0lYnoMV/xlvuoZY6so4W7Ii3SJC7LGYVDtvcDSUY8yZVhNx8Lyf0G+PdjqoJcAkR670hwpDYAw6oe7neC4nRu+P60Z9MORe7rFSVDum0N/HZgAzDIOroZg4o00lqlH9GC/2OahLPxiq3cCl8i6lRi63m2aKHr/DNaPQ3312zoHA3G8TZYS1ZvfSLIEfCAOI4Ywz5N2CrE1vXbJX4nA/q1+R5tUwNKfB/KGC9hqHzuosBA5O1lQYJcTPLOMEH3qH1deen3T4KkjAWDhxZE93ovfmXUmZz3kMtkWXr3yEwwWM6L49QMPF0Iv+/eXOWnjYexJ0YU5hljgG96mBNhiLURRg/xDI6BsJLKBEb2fNGfp8k1crTyv7dVvjYvo=
+    - secure: j97NlFyjfMEA1CDh1uPXpksrp7udS57/0DTIsIXRLUNXvn203Skm9DvUqp1wNhFSfBAhSM0xE7rsWiy23goVL8z3+pxW4DQxzi9THzB+Z76/eHr6gGfboYAI7xqxxweC89y52B3h9y3E+smFRW4HZeS4LC+nw/tXo0VQh58fbE4Ydqx0JLXEJYx0PpJ1eYEfa3U0D9OlB+c4p+KJcer3ufvnAtdOPpsnjySlzzd9cg/3H2Kgt3P2Axvk7x+nFAYlE2Ov02aO8n00MhXI1R9GkImN1wl8XCcXS7gZOXeR1Xd6WPyY5wHOiOUPZe5+NnTMNLWIWm9rfY3Tj7YGvq41JoWbP348PELaqzAb4bn6zYhjR7IMZLmBroQ3ndDNk9Ugu0TOufQIXZOEQvhcdPW80T4sVhJBprxMRpji3wp2nfk5AZ6uaW1ppbeKTCbXSNGUMY8syzcuzakNOHsw19yJDJ2bRl/6VJEV7xaSKmUYFCkGBsuUeB7deQWYzV04oC2RU4ZMXaz/l0oUy02HigPfWpuHcfuxl1rKQpkgi1HysiecQpPX+qGxnPuIkhTYqRYFTnNtaEFHgnnWdaAAHqj+7BsLECTnu83PB8eIOXu1urBHxrxFgG5Ghjv8dN14GhXTiXWmNIp0C9AwLIT4KHrUPT+x5F2Dqtb07Qmlnm1/XD0=
+    - secure: km8ABs12DHC1juDJ1W6W1ekvo8E1pNxyySep2rFWsB1BLWQdK6vWNUi0EqcQVibRa/WEmSlHFZCfplkzK5ON3c1UbNMnqHkh3wNArDr8AcnaI7xRwGFxVIJtPGZVfQtma06QeXyE54pggjHMF9i9gGrNxyBIduEtX9ao1NIaUudnQiDPXAxMf9S5yrQarWnUUoNaJGU6KhY703LI5P7+znRn+GQ170J+WQdxloivfKqnrVASCHMQbkxi+KBuXhxCsRHcw/NkE9oKGlbG50UdR0LpSe4YJiuBuOXzJX2NwK0b8ycvovCalmNcqivRgNxaICiQ7wCvhxkxoP1+7zdNjGdjERIOPzGiT68r2qh47D9SDHgipjwX9IGtlXwHBgWiNLcRs+NbhJeuB5enKcSXH1+MrpERVBoO/vBWVX59iXobaA9XC9YgyYOOmBHkX7Ajk/2CUA/ADqKpeAbIBW2lpUft2Ni+5bWkjDVe7DetjwSYU/Gj6FRFtU3jsMTNitSmnbK6e/5DcPc3odxwsLKUgZiXU8RahiYIkesCm042Uu+sdcJ7SvxFGF6EkJPbtMxWuLi+Nza6c+uuKSQuOOGyKTTUmQxNf+BZIchdZM5bWOr6aH2ISzoAl44Of/OlkXrZmhm1QS+OkIN8fbivkXxWhQXJE7H2jeswV5WLfpZ7dgY=
+    - secure: KOnFu91uxkxVpIgztouC6pHYYQBlbkifZ6vB3THU3RVh8DN5a2Q2jKJ9lqq5eDQn8csgNktDrAEXaSjVhychCXdAZelrk6LrTESeNG3pH60/fyxFvOuuJhE3lyTVMNL1uczJk4SShsUrJWKvO60GHh+ZGLDdcO/hq3K/RuQofMsmDeSiDlL/QW6eo2uoAD7JlSUvGdyJBpA0l0kMXvdLRhDoxQMjAUUKZQBt9wHPWiajqtDTlkLTV++mDsIzqZ+a98ZERtwoSSdUxWx4A4i3/UmhBL0YpHz0zCFD+3wYJODwTanQLpv2bbNBKyvRFvdSZqtzuTN/uIsxDlHUmtLGaO8QvASbTV29tNK5XFnUG80LpyLRysJVQPQqJhX4nH6zUrMuqc7mpF1XBcTTLnzhnmEYH0MuYSOdEQKAWfgXP2PmV6/F+lNcILgHv4DcX5yha0zCGnv3sKE3F3SeSYqzCtBrcISVLKyuPkO8qMdaGAeJPtdvknLrm4nNjXbBtEyrz145UkBh5uua/CXXrheDsKZudRRVjqTtbvYZ4nojqidb1H8a/v0yPixL+i/0z/RynRQ02h+VxESzA5Tv6CZOzjvkCPjY5DYq7KOPJNtoKbrD5+23Y5+UN6/Og6C8eef6mIirY+NE5qJxPUoNfA6FCFW0W1SSJpW4mme6e+a0n9w=
+    - secure: IMo6+b8kxTXhavolsJQDwWPm5rKZfadUJu6U0sG/prFWi+wzMXln5XpASiiHomzDKQ3XYp6jrn8nU66R/H2Usv2Q9U/ikLevTXY4UGGxbzCU8j/yCOSzzZyD5K6XlvhFmqZClAuVCw8CRyzXMuBbq9dmZqOg+c5axlcLXH+W6raYWsS8t/kZuzVtp4thWX/7vOToxR7wZr8zQ+w/v8khXs9rs69fIv1YDPx+I8+spheFXGDsyI2bM+ZOxMbQxNHWtpsQpde6XIfaHo6cBUgx7C8Z8dr2/x3xGrDQ7SVzGw865fuEEaGs9wYa5C212NIPAeeA2ZIoob2qK2C+CA6N2wByZ/bGWXTTF0VzNIoiVZfZZuI60Jxk4wboCM5Ivdk2jxyEIFwPDfduarGIeSnooJo6dVj2jye/l46yF6Dzkwv9ZgpkMKch7tF/eftsY/BwTM8m0nKYcVbwpT5M9bmrQZCzrJfYqLJfASsM8B0mxkFD2Owtwswdw2C4MhtvcGwvOpMn4Td/sMv+QODNnEn9/yQX4iOAqtTU3m8VhqOOHqzPN/UcjW/Ro5vcDmY232zZljUYdcYyOrphheJJ/iMwk0YlLz+rIEATNSOSb9aD4hTMtinHMXxxe5FyZiZ7Upk2vnuMogjbQ0hvEWAkXYh2DRlKwiiNyPi0+MHWF5kdb60=
+# Executes pre-build installations of needed command-line tools
+before_install:
+  # Installs the Travis command-line tool
+  - gem install travis -v 1.8.5 --no-rdoc --no-ri
+  # Installs the Amazon ECS client
+  - sudo curl -k -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
+  # Changes the permission on the Amazon ECS client to be executable
+  - sudo chmod +x /usr/local/bin/ecs-cli
+  # Sets the environment variables used through your process
+  - export BUILD_NAME=eagle-eye-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
+  - export CONTAINER_IP=54.215.193.139
+  - export PLATFORM_TEST_NAME="eagle-eye-platform-tests"
 script:
-- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-- mvn clean package docker:build
-- docker push skayvanfar/eagle-eye-licensing-service:licensing
-- docker push skayvanfar/eagle-eye-organization-service:organization
-- docker push skayvanfar/eagle-eye-orgservice-new:orgservice
-- docker push skayvanfar/eagle-eye-confsvr:confsvr
-- docker push skayvanfar/eagle-eye-eurekasvr:eurekasvr
-- docker push skayvanfar/eagle-eye-zuulsvr:zuulsvr
-- docker push skayvanfar/eagle-eye-authentication-service:authentication
-- docker push skayvanfar/eagle-eye-specialroutes-service:specialroutes
-- ecs-cli --version
+# Executes a shell script that will tag the source code with the build name
+- sh travis_scripts/tag_build.sh
+# Builds the servers and local Docker images using Maven
+- sh travis_scripts/build_services.sh
+#Pushes the Docker images to Docker Hub
+- sh travis_scripts/deploy_to_docker_hub.sh
+# Starts the services in an Amazon ECS container
+- sh travis_scripts/deploy_to_amazon_ecs.sh
+- sh travis_scripts/trigger_platform_tests.sh
