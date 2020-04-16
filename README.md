@@ -1,5 +1,5 @@
 # Introduction
-Welcome to Egle-Eye project. This project demonstrates how to build a microservice.
+Welcome to Egle-Eye project. This project demonstrates how to build a microservice. this is based on Spring Microservices in Action by JOHN CARNELL
 
 # Software needed
 1.	Apache Maven (http://maven.apache.org). I used version 3.3.9 of the Maven. I chose Maven because, while other build tools like Gradle are extremely popular, Maven is still the pre-dominate build tool in use in the Java ecosystem. All of the code in this project have been compiled with Java version 1.8.
