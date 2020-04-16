@@ -1,0 +1,12 @@
+#Default port is 8761
+server:
+  port: 9411
+
+
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    ir.sk.eagleeye: DEBUG
+    ir.sk.microservice: DEBUG

@@ -29,6 +29,7 @@
         <module>orgservice-new</module>
         <module>common</module>
         <module>authentication-service</module>
+        <module>zipkinsvr</module>
     </modules>
     <build>
         <plugins>

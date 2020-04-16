@@ -22,6 +22,12 @@ services:
   #       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
   #       EUREKASERVER_PORT:8761
   #       ENCRYPT_KEY:       "IMSYMMETRIC"
+  zipkin:
+    image: skayvanfar/eagle-eye-zipkinsvr:zipkinsvr
+    ports:
+      - "9411:9411"
+    environment:
+      SERVER_PORT: "9411"
   zuulserver:
     image: skayvanfar/eagle-eye-zuulsvr:zuulsvr
     ports:
@@ -32,6 +38,7 @@ services:
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:        "8761"
+      ZIPKIN_URI: "http://zipkin:9411"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
       ORGSERVERNEW_PORT:        "8087"
@@ -54,6 +61,7 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
+      ZIPKIN_URI: "http://zipkin:9411"
       DATABASESERVER_PORT: "5432"
       ZUULSERVER_PORT:     "5555"
       AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
@@ -70,6 +78,7 @@ services:
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"
+      ZIPKIN_URI: "http://zipkin:9411"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
@@ -137,3 +146,14 @@ services:
     ports:
       - 2181:2181
       - 9092:9092
+  #  This is the openzipkin server.
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   ports:
+  #     - 9411:9411
+  #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
+  logspout:
+    image: gliderlabs/logspout
+    command: syslog://logs5.papertrailapp.com:51601
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

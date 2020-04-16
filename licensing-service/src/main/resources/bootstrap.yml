@@ -4,6 +4,11 @@ spring:
   profiles:
     active:
       default
+  #    sleuth:
+  #      sampler:  # how often each service should write data to Zipkin
+  #         percentage:  1
+  zipkin:
+    baseUrl:  http://localhost:9411
   cloud:
     config:
       enabled: true

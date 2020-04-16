@@ -14,6 +14,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.sleuth.Sampler;
+import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
@@ -47,6 +49,15 @@ public class Application {
 
     @Autowired
     private ServiceConfig serviceConfig;
+
+    /**
+     * defined in them so all transactions will be traced with Zipkin
+     * @return
+     */
+    @Bean
+    public Sampler defaultSampler() {
+        return new AlwaysSampler();
+    }
 
 /*    @Primary
     @Bean
