@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.cloud.sleuth.Tracer;
 
 /**
  * a Zuul post filter to inject the correlation ID back
@@ -22,6 +23,9 @@ public class ResponseFilter extends ZuulFilter {
 
     @Autowired
     FilterUtils filterUtils;
+
+//    @Autowired
+ //   Tracer tracer;
 
     @Override
     public String filterType() {
@@ -44,6 +48,9 @@ public class ResponseFilter extends ZuulFilter {
 
         logger.debug("Adding the correlation id to the outbound headers. {}", filterUtils.getCorrelationId());
         ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId()); // Grab the correlation ID that was passed in on the original HTTP request and inject it into the response.
+
+      //  ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, tracer.getCurrentSpan().traceIdString());
+
 
         // Log the outgoing request URI so that you have “bookends” that will show the incoming and outgoing entry of the user’s request into Zuul.
         logger.debug("Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
