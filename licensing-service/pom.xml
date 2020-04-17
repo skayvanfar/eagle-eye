@@ -8,7 +8,16 @@
     <packaging>jar</packaging>
 
     <name>Eagle Eye Licensing Service</name>
-    <description>Licensing Service</description>
+    <description>
+        Licensing Service
+        client resiliency pattern:
+        1 Client-side load balancing
+        Netflix Ribbon
+        2 Circuit breakers
+        3 Fallbacks
+        4 Bulkheads
+        Netflix Hystrix
+    </description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

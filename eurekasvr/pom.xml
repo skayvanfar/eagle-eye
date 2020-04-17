@@ -9,7 +9,16 @@
     <packaging>jar</packaging>
 
     <name>Eureka Server</name>
-    <description>Eureka Server demo project</description>
+    <description>
+        Eureka Server demo project
+        service discovery:
+            Netflix Eureka
+        Pattern: Self registration
+        Pattern: Client-side discovery
+            Spring DiscoveryClient
+            Ribbon-aware Spring RestTemplate
+            Netflix Feign client
+    </description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

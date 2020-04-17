@@ -9,7 +9,11 @@
     <packaging>jar</packaging>
 
     <name>Config Server</name>
-    <description>Config Server demo project</description>
+    <description>
+        Config Server demo project
+        Spring Cloud Config Server
+        Pattern: Externalized configuration, Pull model
+    </description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
