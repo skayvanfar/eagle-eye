@@ -24,6 +24,17 @@ public class Organization {
     @Column(name = "contact_phone", nullable = false)
     String contactPhone;
 
+    public Organization() {
+    }
+
+    public Organization(String id) {
+        this.id = id;
+    }
+
+    public Organization(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;

@@ -8,6 +8,8 @@ public class Organization {
     String contactPhone;
 
 
+
+
     public String getId() {
         return id;
     }
