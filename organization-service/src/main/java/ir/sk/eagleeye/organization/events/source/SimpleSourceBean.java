@@ -22,10 +22,10 @@ public class SimpleSourceBean {
     private static final Logger logger = LoggerFactory.getLogger(SimpleSourceBean.class);
 
     // Spring Cloud Stream will inject a Source interface implementation for use by the service
-    @Autowired
+   /* @Autowired
     public SimpleSourceBean(Source source){
         this.source = source;
-    }
+    }*/
 
     public void publishOrgChange(String action,String orgId){
         logger.debug("Sending Kafka message {} for Organization Id: {}", action, orgId);
@@ -36,6 +36,6 @@ public class SimpleSourceBean {
                 UserContextHolder.getContext().getCorrelationId()); // The message to be published is a Java POJO
 
         // When you’re ready to send the message, use the send() method from a channel defined on the Source class
-        source.output().send(MessageBuilder.withPayload(change).build());
+    //    source.output().send(MessageBuilder.withPayload(change).build());
     }
 }

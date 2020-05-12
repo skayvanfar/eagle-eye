@@ -22,7 +22,7 @@ import javax.servlet.Filter;
 // The @EnableResourceServer annotation is used to tell your microservice it’s a protected resource
 @EnableResourceServer
 @ComponentScan({"ir.sk.eagleeye.organization", "ir.sk.microservice"})
-@EnableBinding(Source.class) // Spring Cloud Stream to bind the application to a message broker
+//@EnableBinding(Source.class) // Spring Cloud Stream to bind the application to a message broker
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
