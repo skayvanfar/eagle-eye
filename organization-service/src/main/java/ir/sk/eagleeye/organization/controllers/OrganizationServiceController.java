@@ -4,7 +4,10 @@ import ir.sk.eagleeye.organization.model.Organization;
 import ir.sk.eagleeye.organization.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "v1/organizations")
@@ -24,7 +27,10 @@ public class OrganizationServiceController {
     }
 
     @PostMapping(value = "/{organizationId}")
-    public void saveOrganization(@RequestBody Organization org) {
+    public void saveOrganization(@RequestBody @Valid Organization org, Errors errors) {
+        if (errors.hasErrors()) {
+            // todo
+        }
         orgService.saveOrg(org);
     }
 
