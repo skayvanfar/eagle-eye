@@ -1,6 +1,5 @@
 package ir.sk.eagleeye.organization.controllers;
 
-
 import ir.sk.eagleeye.organization.model.Organization;
 import ir.sk.eagleeye.organization.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +13,22 @@ public class OrganizationServiceController {
     private OrganizationService orgService;
 
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{organizationId}")
     public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
         return orgService.getOrg(organizationId);
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{organizationId}")
     public void updateOrganization(@PathVariable("organizationId") String orgId, @RequestBody Organization org) {
         orgService.updateOrg(org);
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{organizationId}")
     public void saveOrganization(@RequestBody Organization org) {
         orgService.saveOrg(org);
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{organizationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization(@PathVariable("orgId") String orgId, @RequestBody Organization org) {
         orgService.deleteOrg(org);

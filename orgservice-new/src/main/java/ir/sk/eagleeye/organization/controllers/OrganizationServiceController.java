@@ -21,7 +21,7 @@ public class OrganizationServiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationServiceController.class);
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{organizationId}")
     public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
         logger.debug("Looking up data for org {}", organizationId);
 
@@ -30,17 +30,17 @@ public class OrganizationServiceController {
         return org;
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{organizationId}")
     public void updateOrganization(@PathVariable("organizationId") String orgId, @RequestBody Organization org) {
         orgService.updateOrg(org);
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{organizationId}")
     public void saveOrganization(@RequestBody Organization org) {
         orgService.saveOrg(org);
     }
 
-    @RequestMapping(value = "/{organizationId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{organizationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization(@PathVariable("orgId") String orgId, @RequestBody Organization org) {
         orgService.deleteOrg(org);

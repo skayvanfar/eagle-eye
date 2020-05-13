@@ -32,13 +32,13 @@ public class LicenseServiceController {
     @Autowired
     private HttpServletRequest request;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public List<License> getLicenses(@PathVariable("organizationId") String organizationId) {
         logger.debug("LicenseServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return licenseService.getLicensesByOrg(organizationId);
     }
 
-    @RequestMapping(value = "/{licenseId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{licenseId}")
     public License getLicenses(@PathVariable("organizationId") String organizationId,
                                @PathVariable("licenseId") String licenseId) {
         logger.debug("Entering the license-service-controller");
@@ -52,7 +52,7 @@ public class LicenseServiceController {
      * @param clientType     The clientType determines the type of Spring REST client to use.
      * @return
      */
-    @RequestMapping(value = "/{licenseId}/{clientType}", method = RequestMethod.GET)
+    @GetMapping(value = "/{licenseId}/{clientType}")
     public License getLicensesWithClient(@PathVariable("organizationId") String organizationId,
                                          @PathVariable("licenseId") String licenseId,
                                          @PathVariable("clientType") String clientType) {
@@ -60,17 +60,17 @@ public class LicenseServiceController {
         return licenseService.getLicense(organizationId, licenseId, clientType);
     }
 
-    @RequestMapping(value = "{licenseId}", method = RequestMethod.PUT)
+    @PutMapping(value = "{licenseId}")
     public void updateLicenses(@PathVariable("licenseId") String licenseId, @RequestBody License license) {
         licenseService.updateLicense(license);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @PostMapping(value = "/")
     public void saveLicenses(@RequestBody License license) {
         licenseService.saveLicense(license);
     }
 
-    @RequestMapping(value = "{licenseId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "{licenseId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLicenses(@PathVariable("licenseId") String licenseId, @RequestBody License license) {
         licenseService.deleteLicense(license);
