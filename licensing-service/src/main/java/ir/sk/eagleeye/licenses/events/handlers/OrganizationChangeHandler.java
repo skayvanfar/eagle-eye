@@ -17,7 +17,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 // Move the @EnableBindings out of the Application.java class and into
 //the OrganizationChangeHandler class. This time instead of using
 //Sink.class, use your CustomChannels class as the parameter to pass
-@EnableBinding(CustomChannels.class)
+// @EnableBinding(CustomChannels.class)
 public class OrganizationChangeHandler {
 
     @Autowired

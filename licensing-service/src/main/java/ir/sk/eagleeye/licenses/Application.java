@@ -42,7 +42,7 @@ import java.util.List;
 @EnableCircuitBreaker
 @EnableResourceServer
 @ComponentScan({"ir.sk.eagleeye.licenses", "ir.sk.microservice"})
-@EnableBinding(Sink.class) // The @EnableBinding annotation tells the service to the use the channels defined in the Sink interface to listen for incoming messages
+// @EnableBinding(Sink.class) // The @EnableBinding annotation tells the service to the use the channels defined in the Sink interface to listen for incoming messages
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
