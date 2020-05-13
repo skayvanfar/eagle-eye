@@ -1,13 +1,19 @@
 package ir.sk.eagleeye.organization.model;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Data
+@RequiredArgsConstructor
 @Entity
 @Table(name = "organizations")
 public class Organization {
+
     @Id
     @Column(name = "organization_id", nullable = false)
     String id;
@@ -23,59 +29,4 @@ public class Organization {
 
     @Column(name = "contact_phone", nullable = false)
     String contactPhone;
-
-    public Organization() {
-    }
-
-    public Organization(String id) {
-        this.id = id;
-    }
-
-    public Organization(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-
 }
