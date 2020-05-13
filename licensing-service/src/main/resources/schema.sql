@@ -10,5 +10,6 @@ CREATE TABLE licenses
     product_name      TEXT                     NOT NULL,
     license_max       INT                      NOT NULL,
     license_allocated INT,
-    comment           VARCHAR(100)
+    comment           VARCHAR(100),
+    createdAt         timestamp                /*NOT NULL*/
 );

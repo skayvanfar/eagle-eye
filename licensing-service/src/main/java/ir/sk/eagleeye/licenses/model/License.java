@@ -1,12 +1,16 @@
 package ir.sk.eagleeye.licenses.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 @Entity
 @Table(name = "licenses")
 public class License {
@@ -43,6 +47,13 @@ public class License {
 
     @Column(name = "comment")
     private String comment;
+
+    private Date createdAt;
+
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
+    }
 
     public License withId(String id) {
         this.setLicenseId(id);
